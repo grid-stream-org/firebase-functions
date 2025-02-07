@@ -5,6 +5,10 @@ const { getAuth } = require('firebase-admin/auth')
 initializeApp()
 
 exports.getUserEmailById = onCall(async request => {
+  if (!request.auth) {
+    throw new Error('Unauthorized')
+  }
+
   const userId = request.data.userId
 
   if (!userId) {
